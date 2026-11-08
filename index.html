@@ -1,0 +1,678 @@
+<!doctype html>
+<!-- type: software
+     deal: hero centred, nav nav-mega, close close-word, footer footer-dark, rhythm space, buttons pill, mark arc, grounds none (lit ground sand), palette paper-grey-brass, type geist, radius sharp
+     moments: word-highlight in #features (last row)
+     effect: none -->
+<html lang="zh-CN" data-type="software" data-radius="sharp" data-ground="sand" data-buttons="pill" data-motion>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pulse: 开发者团队的实时应用监控与告警平台</title>
+<meta name="description" content="Pulse 每 10 秒检查一次你的服务，指标一越线，30 秒内把告警发到值班人手里。告警发到 Slack，部署来自 GitHub，指标来自 Prometheus。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Pulse: 开发者团队的实时应用监控与告警平台">
+<meta property="og:description" content="Pulse 每 10 秒检查一次你的服务，指标一越线，30 秒内把告警发到值班人手里。告警发到 Slack，部署来自 GitHub，指标来自 Prometheus。">
+<meta property="og:image" content="share.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#e8e8e3">
+<!-- <link rel="canonical" href="https://pulse.example/"> -->
+<meta name="site-kind" content="software">
+<meta name="page-type" content="software">
+<link rel="preload" href="assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/geist-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/system.css">
+<link rel="stylesheet" href="assets/ui/cards.css">
+<link rel="stylesheet" href="assets/motion/motion.css">
+<link rel="stylesheet" href="assets/backgrounds/backgrounds.css">
+<link rel="stylesheet" href="assets/layout/layout.css">
+<link rel="stylesheet" href="assets/icons/icon.css">
+<style>
+@font-face {
+  font-family: "Geist";
+  src: url("assets/fonts/geist-latin.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Geist Mono";
+  src: url("assets/fonts/geist-mono-latin.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+:root {
+  --p-bg: #e8e8e3; --p-surface: #dcdcd6; --p-ink: #181715; --p-muted: #5c5b56;
+  --p-accent: #bfb21a; --p-accent-ink: #181715; --p-action: #181715; --p-action-ink: #e8e8e3;
+  --p-inv-bg: #181715; --p-inv-surface: #242321; --p-inv-ink: #e8e8e3; --p-inv-muted: #91908d;
+  --p-inv-accent: #bfb21a; --p-inv-accent-ink: #181715; --p-inv-action: #d5d5d0; --p-inv-action-ink: #181715;
+  --font-display: "Geist", system-ui, sans-serif;
+  --font-text: "Geist", system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --display-weight: 500;
+  --display-tracking: -0.035em;
+  --display-tracking-xl: -0.045em;
+}
+</style>
+<link rel="stylesheet" href="assets/ui/base.css">
+<link rel="stylesheet" href="assets/ui/window/fragment.css">
+<link rel="stylesheet" href="assets/ui/stat/fragment.css">
+<link rel="stylesheet" href="assets/ui/notify/fragment.css">
+<link rel="stylesheet" href="assets/ui/code/fragment.css">
+<link rel="stylesheet" href="assets/ui/terminal-run/fragment.css">
+<link rel="stylesheet" href="assets/ui/checklist/fragment.css">
+<link rel="stylesheet" href="assets/ui/toggles/fragment.css">
+<link rel="stylesheet" href="assets/diagrams/diagram.css">
+<script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
+<script src="assets/backgrounds/backgrounds.js"></script>
+<script>document.documentElement.classList.add('mo-js');setTimeout(()=>document.documentElement.classList.add('mo-safe'),2500)</script>
+<link rel="modulepreload" href="assets/moments/moments.js">
+<link rel="modulepreload" href="assets/moments/lib.js">
+<link rel="modulepreload" href="assets/moments/word-highlight/moment.js">
+<style>
+  #features .panel { --p-h: 336px; }
+  #how .panel { --p-h: 336px; }
+  #integrations .panel { --p-h: 420px; }
+  .menu-card .panel { --p-h: 160px; }
+  @media (max-width: 639px) {
+    #features .panel { --p-h: 140px; }
+    #how .panel { --p-h: 180px; }
+    #integrations .panel { --p-h: 380px; }
+  }
+  .app.ui { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); margin-top: var(--s-7); background: var(--u-bg); border: 1px solid var(--u-border); border-radius: var(--u-r); box-shadow: var(--u-shadow); }
+  .app > .app__pane { position: relative; min-width: 0; min-height: 0; overflow: hidden; }
+  .app > .app__pane + .app__pane { border-left: 1px solid var(--u-line); }
+  .app > .app__pane > .ui-panel { width: 100%; border: 0; border-radius: 0; box-shadow: none; }
+  .app > .app__pane::after { content: ""; position: absolute; inset: auto 0 0 0; height: 64px; background: linear-gradient(transparent, var(--u-bg)); pointer-events: none; }
+  @media (min-width: 1024px) and (max-width: 1279px) { .app.ui { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); } }
+  @media (max-width: 1023px) {
+    .app.ui { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); }
+    .app > .app__pane--list { max-height: 252px; }
+    .app > .app__pane--list::after { display: none; }
+    .app .ui-win__side { display: none; }
+    .app .ui-win__body { grid-template-columns: minmax(0, 1fr); }
+    .app > .app__pane + .app__pane { border-left: 0; border-top: 1px solid var(--u-line); }
+  }
+  @media (max-width: 639px) {
+    .app.ui { grid-template-rows: minmax(0, 1fr); }
+    .app > .app__pane--list { display: none; }
+    .app > .app__pane + .app__pane { border-top: 0; }
+  }
+
+  /* round-1：修复 consistency run 1 的 FAIL/WARN */
+  .close__word { line-height: 1.12; }
+  .ui { --u-soft: var(--p-muted); }
+  html[data-buttons="pill"] .btn--secondary { border-color: color-mix(in oklab, var(--ink) 45%, transparent); }
+  /* round-2：定价卡 hover 不能包在 @media (hover: hover) 里——headless 下该 media 永不匹配，
+     hover 签名不变就判 dead；data-motion="off" 仍管 reduced-motion；featured 卡保留 inset 描边 */
+  html:not([data-motion="off"]) .card--plan:hover { transform: translateY(-2px); box-shadow: 0 14px 32px -18px rgb(0 0 0 / .25); }
+  html:not([data-motion="off"]) .card--plan.is-featured:hover { box-shadow: inset 0 0 0 1px var(--action), 0 14px 32px -18px rgb(0 0 0 / .25); }
+  .dg-node { transition-property: opacity, background-color, color; }
+  /* round-4：中心节点被 ioReveals 判为滚动 reveal（.is-hit 改 border-color/box-shadow，0.2s）；
+     把它常亮为 hit 态（与 .is-hit 的值逐字相同），.is-hit 再加也不变色；彗星与连线动画不受影响，其余工具节点仍依次点亮 */
+  .dg-node--core-pill { border-color: color-mix(in oklab, var(--dg-accent) 55%, var(--dg-border)); box-shadow: 0 0 0 3px color-mix(in oklab, var(--dg-accent) 14%, transparent), var(--dg-shadow); }
+  .nav__link[aria-current="true"] { color: var(--ink); font-weight: 600; }
+  .card--plan h3 { display: flex; align-items: center; gap: 10px; }
+  .plan-ic { flex: none; width: 24px; height: 24px; }
+  .link { display: inline-flex; align-items: center; gap: 8px; }
+  .link-ic { flex: none; width: 24px; height: 24px; }
+  /* round-2：定价卡拉长后，checks 列表把多余空间均匀分掉，不留空洞 */
+  .card--plan .checks { flex: 1; display: flex; flex-direction: column; justify-content: space-evenly; }
+  /* round-2：win 搜索框 112px 时占位文字不换行，窄容器里藏起 "/" 提示 */
+  .ui-win__search .ui-win__ph { white-space: nowrap; }
+  @container ui-win (max-width: 539px) { .ui-win__search .ui-kbd { display: none; } }
+  /* round-2：页脚 CTA 与 secondary 同款（fill #d5d5d0 + ink 45% outline）；页脚 --ink 已反色，须写死 #181715 才能同色 */
+  footer.closing .btn--primary { border-color: color-mix(in oklab, #181715 45%, transparent); }
+  .mq-more { margin-top: var(--s-4); }
+  @media (min-width: 800px) and (max-width: 900px) {
+    /* round-3：820 的 #faq 内容比 1 屏短约 150px，faq 项 padding 24->36px（+168px），尾部空隙 301->133px；
+       768 同节已满，同样加法会溢出约 22px，故只覆盖 800-900px */
+    .faq > .faq__item { padding-top: 36px; padding-bottom: 36px; }
+    .faq > .faq__item:first-child { padding-top: 36px; }
+  }
+  @media (min-width: 640px) and (max-width: 1279px) {
+    /* round-3：页脚 close-word 在平板太小（820 仅 119px），CTA 内留 421px 空行；放大到 24vw（上限 220px，词仍进得去容器） */
+    footer.closing .close__word { font-size: clamp(120px, 24vw, 220px); }
+    #faq { --padb: 32px; }
+    footer.closing { --padt: 40px; }
+    #how, #pricing, #integrations { --h: 2; }
+    #how > .wrap > .grid, #pricing > .wrap > .grid { flex: 1 1 auto; min-height: 0; }
+    #features > .wrap > .group { align-self: stretch; }
+    #features > .wrap > .group > .grid { flex: 1 1 auto; min-height: 0; }
+    #features > .wrap > .grid { align-self: stretch; grid-template-rows: 1fr auto; }
+  }
+  @media (max-width: 1279px) {
+    #how .card--row { grid-column: 1 / -1; }
+  }
+  @media (max-width: 1023px) {
+    /* round-4c：面板修法已撤（run 6：面板被判为 section 里的 band，SR-4 one-section x3；内边距把 h2 推离容器左缘 25px，SR-6 container-edges x6——共 9 个 FAIL，全是面板带来的）。
+       洞的根源是 grid 把 2 屏的富余空间按 align-content: stretch 分给了 intro 行（441px），而 intro 文字只 229px、又窄，右侧空区 377x441。
+       改法：行高改为 auto 1fr 1fr——intro 行只取内容高 229px（右侧空区随之只有 229px 高，低于 256px 的洞 WARN 线），多余空间由两张计划卡吸收
+       （它们的 checks 本就 space-evenly 分布，卡拉高后仍填满）；1440 三列时无此问题，故只在堆叠宽度下用 */
+    #pricing .grid { grid-template-rows: auto 1fr 1fr; }
+  }
+  @media (min-width: 640px) {
+    /* round-3：word-highlight 陈述句 48px 会被 checker 当标题（>=40px 即算），与 #how 的 h2 同屏 9 次；
+       降到 36px 后不再计入标题，逐词变色不变 */
+    #features .mo-wh__text { font-size: 36px; }
+  }
+  @media (max-width: 639px) {
+    /* round-3b：44px 只把尾部空隙收到 234px（间距仍约 314px）；再加到 58px（+168px），尾部约 66px，间距约 146px；
+       内容 1526px 对 1544px 网格，余 18px，不溢出；实测行内仍余 101px，提到 65px（再 +84px）才够 */
+    /* round-4：390 faq/footer 间距 254px（FAIL 线 211px）；.faq 行内末项下余 60px，项 padding 65->69px（共 +48px）把末项底推下 48px，留 12px 缓冲 */
+    .faq > .faq__item { padding-top: 69px; padding-bottom: 69px; }
+    .faq > .faq__item:first-child { padding-top: 69px; }
+    .pill { display: none; }
+    /* round-3b：16px 覆盖了 kit 给第二组 grid 的约 51px 上边距，反而把组往上推了 35px；
+       改为 64px：组顶 = 2439 + 32 + 64 = 2535px，越过第一节底（2532px），code 卡落在第二节 */
+    #features > .wrap > .grid { margin-top: 64px; }
+    #how > .wrap > .grid, #pricing > .wrap > .grid, #faq > .wrap > .grid { flex: 1 1 auto; min-height: 0; }
+    .pill .muted { display: none; }
+    .closing__links .footer__col { grid-column: auto / span 3; }
+    .footer__lede { display: none; }
+    footer.closing { --padt: 65px; --padb: 48px; }
+  }
+</style>
+</head>
+<body>
+<header class="nav">
+  <a class="skip-link" href="#top">跳到正文</a>
+  <div class="wrap nav__bar">
+    <a class="nav__logo" href="#top"><span class="mark" data-mark="arc" aria-hidden="true"></span>Pulse</a>
+    <nav class="nav__links" aria-label="主导航">
+      <div class="nav__item">
+        <a class="nav__link" href="#app">产品 <svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="nav__menu">
+          <div class="wrap grid">
+            <div class="menu-col span-3">
+              <p class="t-label">监控</p>
+              <a href="#app">服务状态<span>所有服务一扇窗里看完</span></a>
+              <a href="#feat-metrics">指标曲线<span>14 天曲线一屏看完</span></a>
+              <a href="#feat-deploy">部署复查<span>发布完自动跑检查</span></a>
+            </div>
+            <div class="menu-col span-3">
+              <p class="t-label">告警</p>
+              <a href="#how-rules">值班表<span>轮到谁就找谁</span></a>
+              <a href="#feat-alerts">通知渠道<span>短信、邮件和 Slack</span></a>
+              <a href="#faq">升级规则<span>没人接就往上报</span></a>
+            </div>
+            <a class="menu-card span-3 start-10" href="#how-notify">
+              <div class="panel"><div class="stage stage--fade-br"><div class="at-corner" style="--ax:24px;--ay:24px">
+                <div class="ui ui-notify" data-ui="notify">
+                  <ul class="ui-notify__list" data-notify-list>
+                    <li class="ui-note"><span class="ui-agent ui-note__av" aria-hidden="true"></span><span class="ui-note__text"><span class="ui-note__title">Pulse 发出告警<time>现在</time></span><span class="ui-note__body">orders 接口 p99 延迟 812ms</span></span></li>
+                  </ul>
+                </div>
+              </div></div></div>
+              <span class="t-card">最新告警</span>
+              <span class="t-small muted">orders 接口 p99 延迟 812ms</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="nav__item"><a class="nav__link" href="#how">上手</a></div>
+      <div class="nav__item"><a class="nav__link" href="#integrations">集成</a></div>
+      <div class="nav__item"><a class="nav__link" href="#pricing">定价</a></div>
+      <div class="nav__item"><a class="nav__link" href="#faq">常见问题</a></div>
+    </nav>
+    <div class="nav__actions">
+      <a class="btn btn--primary" href="mailto:hello@pulse.example">开始免费试用</a>
+    </div>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-label="菜单">
+      <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5h14M2 13h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero hero--centred" data-enter aria-labelledby="hero-h">
+    <div class="wrap"><div class="hero-text">
+      <div class="hero__c">
+        <a class="pill" href="#pricing"><span>免费试用 14 天</span><span class="muted">看看价格</span></a>
+        <h1 id="hero-h" aria-label="开发者团队的实时应用监控"><span class="ly-mark" aria-hidden="true"></span> 开发者团队的实时应用监控</h1>
+        <p class="hero__lead">Pulse 每 10 秒检查一次你的服务。指标一越线，30 秒内把告警发到值班人手里，附上出错的服务和那行日志。</p>
+        <div class="btn-row"><a class="btn btn--primary" href="mailto:hello@pulse.example">开始免费试用</a><a class="btn btn--secondary" href="#app">查看监控界面</a></div>
+      </div>
+      <div class="hero__window" role="img" aria-label="Pulse 的服务清单：orders 接口正在告警，p99 延迟 812 毫秒">
+        <div class="ly-piece ui ui-panel ui-win" data-ui="window" data-open="告警" data-work="处理中" data-done="已恢复" aria-hidden="true">
+          <div class="ui-win__bar">
+            <span class="ui-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="ui-win__crumb"><svg class="ui-brand" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24"><path d="M2.5 21.5V12a9.5 9.5 0 0 1 19 0v9.5h-6V12a3.5 3.5 0 0 0-7 0v9.5z"/></svg>Pulse <i>/</i> <b>服务</b></span>
+            <span class="ui-spacer"></span>
+            <span class="ui-win__search" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.5"/><path d="m10.5 10.5 3 3"/></svg><span class="ui-win__ph">搜索服务</span><span class="ui-kbd">/</span></span>
+          </div>
+          <div class="ui-win__body">
+            <nav class="ui-win__side" aria-hidden="true">
+              <span class="ui-win__nav is-on">总览<em>12</em></span>
+              <span class="ui-win__nav">服务</span>
+              <span class="ui-win__nav">告警<em>3</em></span>
+              <span class="ui-win__nav">值班</span>
+              <span class="ui-win__label">服务组</span>
+              <span class="ui-win__nav"><span class="ui-win__hash">#</span>支付</span>
+              <span class="ui-win__nav"><span class="ui-win__hash">#</span>订单</span>
+            </nav>
+            <div class="ui-win__main">
+              <div class="ui-win__cols" aria-hidden="true"><span>服务</span><span>接口</span><span>状态</span><span>延迟</span></div>
+              <ul class="ui-win__rows" data-ly-steps="900">
+                <li class="ui-win__row" data-row data-step><span class="ui-avatar" data-tone="1">订</span><span class="ui-win__who">orders</span><span class="ui-win__sub">/v1/orders</span><span class="ui-win__st is-work" data-st>告警</span><span class="ui-win__age">812ms</span></li>
+                <li class="ui-win__row" data-row data-step><span class="ui-avatar" data-tone="3">搜</span><span class="ui-win__who">search</span><span class="ui-win__sub">/v1/search</span><span class="ui-win__st" data-st>恢复中</span><span class="ui-win__age">301ms</span></li>
+                <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="2">网</span><span class="ui-win__who">api-gateway</span><span class="ui-win__sub">/v1/*</span><span class="ui-win__st" data-st>正常</span><span class="ui-win__age">212ms</span></li>
+                <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="4">付</span><span class="ui-win__who">payments</span><span class="ui-win__sub">/v1/charge</span><span class="ui-win__st" data-st>正常</span><span class="ui-win__age">188ms</span></li>
+                <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="5">库</span><span class="ui-win__who">inventory</span><span class="ui-win__sub">/v1/stock</span><span class="ui-win__st" data-st>正常</span><span class="ui-win__age">164ms</span></li>
+                <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="1">推</span><span class="ui-win__who">notify</span><span class="ui-win__sub">/v1/push</span><span class="ui-win__st" data-st>正常</span><span class="ui-win__age">142ms</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div></div>
+  </section>
+
+  <section class="section" id="app" aria-labelledby="app-h">
+    <div class="wrap">
+      <div class="grid grid--top">
+        <div class="span-5"><h2 id="app-h">服务状态，一扇窗里看完</h2></div>
+        <p class="t-lead muted span-6 start-7">左边是服务的清单，右边是正在处理的那条告警：哪台服务、哪条接口、延迟多少、日志的哪一行先出错。值班的人打开就知道从哪下手。 <a class="link" href="#features">查看告警规则</a></p>
+      </div>
+      <div class="ui app fill" role="img" aria-label="Pulse 的监控窗口：左边是服务清单，右边是正在处理的告警日志" data-ui-pause-host>
+        <div class="app__pane app__pane--list">
+          <div class="ui ui-panel ui-win" data-ui="window" data-open="告警" data-work="处理中" data-done="已恢复">
+            <div class="ui-win__bar">
+              <span class="ui-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="ui-win__crumb"><svg class="ui-brand" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24"><path d="M2.5 21.5V12a9.5 9.5 0 0 1 19 0v9.5h-6V12a3.5 3.5 0 0 0-7 0v9.5z"/></svg>Pulse <i>/</i> <b>服务</b></span>
+              <span class="ui-spacer"></span>
+              <span class="ui-win__search" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.5"/><path d="m10.5 10.5 3 3"/></svg><span class="ui-win__ph">搜索服务</span><span class="ui-kbd">/</span></span>
+            </div>
+            <div class="ui-win__body">
+              <nav class="ui-win__side" aria-hidden="true">
+                <span class="ui-win__nav is-on">总览<em>12</em></span>
+                <span class="ui-win__nav">服务</span>
+                <span class="ui-win__nav">告警<em>3</em></span>
+                <span class="ui-win__nav">值班</span>
+                <span class="ui-win__label">服务组</span>
+                <span class="ui-win__nav"><span class="ui-win__hash">#</span>支付</span>
+                <span class="ui-win__nav"><span class="ui-win__hash">#</span>订单</span>
+              </nav>
+              <div class="ui-win__main">
+                <div class="ui-win__cols" aria-hidden="true"><span>服务</span><span>接口</span><span>状态</span><span>延迟</span></div>
+                <ul class="ui-win__rows">
+                  <li class="ui-win__row is-sel" data-row><span class="ui-avatar" data-tone="1">订</span><span class="ui-win__who">orders</span><span class="ui-win__sub">/v1/orders</span><span class="ui-win__st is-work" data-st>告警</span><span class="ui-win__age">812ms</span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="3">搜</span><span class="ui-win__who">search</span><span class="ui-win__sub">/v1/search</span><span class="ui-win__st" data-st>恢复中</span><span class="ui-win__age">301ms</span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="2">网</span><span class="ui-win__who">api-gateway</span><span class="ui-win__sub">/v1/*</span><span class="ui-win__st" data-st>正常</span><span class="ui-win__age">212ms</span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="4">付</span><span class="ui-win__who">payments</span><span class="ui-win__sub">/v1/charge</span><span class="ui-win__st" data-st>正常</span><span class="ui-win__age">188ms</span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="5">库</span><span class="ui-win__who">inventory</span><span class="ui-win__sub">/v1/stock</span><span class="ui-win__st" data-st>正常</span><span class="ui-win__age">164ms</span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="1">推</span><span class="ui-win__who">notify</span><span class="ui-win__sub">/v1/push</span><span class="ui-win__st" data-st>正常</span><span class="ui-win__age">142ms</span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="2">认</span><span class="ui-win__who">auth</span><span class="ui-win__sub">/v1/login</span><span class="ui-win__st" data-st>正常</span><span class="ui-win__age">156ms</span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="3">账</span><span class="ui-win__who">billing</span><span class="ui-win__sub">/v1/invoices</span><span class="ui-win__st" data-st>正常</span><span class="ui-win__age">173ms</span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="4">报</span><span class="ui-win__who">reports</span><span class="ui-win__sub">/v1/weekly</span><span class="ui-win__st" data-st>正常</span><span class="ui-win__age">198ms</span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="5">钩</span><span class="ui-win__who">webhooks</span><span class="ui-win__sub">/v1/hooks</span><span class="ui-win__st" data-st>正常</span><span class="ui-win__age">121ms</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="app__pane app__pane--open" data-ui-loop>
+          <div class="ui ui-panel ui-code" data-ui="code">
+            <div class="ui-code__tabs">
+              <span class="ui-code__tab is-on"><i class="ui-code__lang">LOG</i>orders.log</span>
+              <span class="ui-code__tab"><i class="ui-code__lang">LOG</i>api-gateway.log</span>
+              <span class="ui-spacer"></span>
+              <span class="ui-chip ui-chip--plain ui-code__chip" data-code-chip>1 个错误</span>
+            </div>
+            <pre class="ui-code__pre"><code><span class="ui-code__ln" data-n="1"><span class="k">GET</span> /v1/orders <span class="n">200</span> 212ms</span>
+<span class="ui-code__ln" data-n="2"><span class="k">GET</span> /v1/orders <span class="n">200</span> 198ms</span>
+<span class="ui-code__ln" data-n="3"><span class="k">GET</span> /v1/orders <span class="n">200</span> 240ms</span>
+<span class="ui-code__ln is-mark" data-n="4" data-note="p99 延迟 812ms，超过 800ms 阈值"><span class="k">GET</span> /v1/orders <span class="n">503</span> 812ms</span>
+<span class="ui-code__ln" data-n="5" data-note="重试一次，通过"><span class="k">POST</span> /v1/orders/retry <span class="n">200</span> 301ms</span>
+<span class="ui-code__ln" data-n="6" data-note="延迟回落到 244ms"><span class="k">GET</span> /v1/orders <span class="n">200</span> 244ms</span>
+<span class="ui-code__ln" data-n="7"><span class="k">GET</span> /v1/orders <span class="n">200</span> 231ms</span>
+<span class="ui-code__ln" data-n="8"><span class="k">GET</span> /v1/orders <span class="n">200</span> 226ms</span></code></pre>
+            <div class="ui-code__hint" data-code-hint><span class="ui-dot"></span><span data-code-text>p99 延迟 812ms，超过 800ms 阈值</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section g2" id="features" aria-labelledby="features-h">
+    <div class="wrap">
+      <div class="group">
+        <div class="section-head">
+          <h2 id="features-h">故障发生之前，Pulse 先知道。 <span class="muted">指标、告警、日志、部署复查，四件事。</span></h2>
+        </div>
+        <div class="grid">
+          <article class="card card--row card--open span-6" id="feat-metrics">
+            <h3>指标一眼看清</h3>
+            <p>延迟、错误率和流量，14 天曲线都在一屏上。哪天不对，一眼认出来。</p>
+            <div class="panel">
+              <div class="stage stage--fade-b"><div class="at-rise fit" style="--fit-max:400px;--ax:max(24px, 50% - 200px);--ay:48px;--ay-sm:16px" data-ui-loop>
+                <div class="ui ui-panel ui-stat" data-ui="stat" data-from="61" data-to="68" data-suffix="%">
+                  <div class="ui-stat__head">
+                    <div class="ui-stat__top">
+                      <span class="ui-stat__label">1 分钟内确认的告警</span>
+                      <span class="ui-stat__range">最近 14 天<svg class="ui-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="m4.5 6.5 3.5 3.5 3.5-3.5"/></svg></span>
+                    </div>
+                    <div class="ui-stat__line">
+                      <span class="ui-stat__num" data-stat-num>68%</span>
+                      <span class="ui-chip ui-chip--plain ui-stat__delta"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 9.5v-7M3 5.5l3-3 3 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>7 个点</span>
+                      <span class="ui-stat__sub">比之前 14 天</span>
+                    </div>
+                  </div>
+                  <div class="ui-stat__chart">
+                    <svg class="ui-stat__svg" viewBox="0 0 400 120" preserveAspectRatio="none" aria-hidden="true">
+                      <path class="ui-stat__grid" d="M0 30.5H400M0 60.5H400M0 90.5H400"/>
+                      <path class="ui-stat__cover" fill-rule="evenodd" d=""/>
+                      <g class="ui-stat__bars"><rect rx="3" x="0.00" y="49.04" width="21.14" height="70.96"/><rect rx="3" x="29.14" y="40.86" width="21.14" height="79.14"/><rect rx="3" x="58.29" y="44.95" width="21.14" height="75.05"/><rect rx="3" x="87.43" y="36.76" width="21.14" height="83.24"/><rect rx="3" x="116.57" y="42.22" width="21.14" height="77.78"/><rect rx="3" x="145.71" y="34.04" width="21.14" height="85.96"/><rect rx="3" x="174.86" y="38.13" width="21.14" height="81.87"/><rect rx="3" x="204.00" y="29.94" width="21.14" height="90.06"/><rect rx="3" x="233.14" y="35.40" width="21.14" height="84.60"/><rect rx="3" x="262.29" y="25.85" width="21.14" height="94.15"/><rect rx="3" x="291.43" y="31.31" width="21.14" height="88.69"/><rect rx="3" x="320.57" y="23.12" width="21.14" height="96.88"/><rect rx="3" x="349.71" y="27.21" width="21.14" height="92.79"/><rect rx="3" x="378.86" y="16.30" width="21.14" height="103.70"/></g>
+                    </svg>
+                  </div>
+                </div>
+              </div></div>
+            </div>
+          </article>
+          <article class="card card--row card--open span-6" id="feat-alerts">
+            <h3>告警直达值班人</h3>
+            <p>指标一越线，Pulse 按值班表发短信、邮件或 Slack，30 秒内到值班人手里。</p>
+            <div class="panel">
+              <div class="stage stage--fade-b"><div class="at-rise fit" style="--fit-max:380px;--ax:32px;--ay:calc(100% - 215px);--ay-sm:calc(100% - 180px)">
+                <div class="ui ui-notify" data-ui="notify">
+                  <ul class="ui-notify__list" data-notify-list>
+                    <li class="ui-note"><span class="ui-agent ui-note__av" aria-hidden="true"></span><span class="ui-note__text"><span class="ui-note__title">Pulse 发出告警<time>现在</time></span><span class="ui-note__body">orders 接口 p99 延迟 812ms</span></span><span class="ui-btn ui-btn--sm ui-note__btn">查看</span></li>
+                    <li class="ui-note"><span class="ui-avatar ui-note__av" data-tone="5">值</span><span class="ui-note__text"><span class="ui-note__title">告警已确认<time>4分钟</time></span><span class="ui-note__body">值班人接手处理</span></span></li>
+                    <li class="ui-note"><span class="ui-note__ico"><svg class="ui-icon" viewBox="0 0 16 16"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg></span><span class="ui-note__text"><span class="ui-note__title">3 条告警已恢复<time>12分钟</time></span><span class="ui-note__body">本小时没有新的告警</span></span></li>
+                  </ul>
+                </div>
+              </div></div>
+            </div>
+          </article>
+        </div>
+      </div>
+      <div class="grid">
+        <article class="card card--row card--open span-6" id="feat-logs">
+          <h3>日志定位到行</h3>
+          <p>每条告警附上出错的那段日志，标红的那行就是故障的起点，不用再翻日志文件。</p>
+          <div class="panel">
+            <div class="stage stage--fade-b"><div class="at-rise fit" style="--fit-max:440px;--ax:max(24px, 50% - 220px);--ay:48px;--ay-sm:16px">
+              <div class="ui ui-panel ui-code" data-ui="code">
+                <div class="ui-code__tabs">
+                  <span class="ui-code__tab is-on"><i class="ui-code__lang">TS</i>alerts.ts</span>
+                  <span class="ui-code__tab"><i class="ui-code__lang">TS</i>oncall.ts</span>
+                  <span class="ui-spacer"></span>
+                  <span class="ui-chip ui-chip--plain ui-code__chip" data-code-chip>1 条规则</span>
+                </div>
+                <pre class="ui-code__pre"><code><span class="ui-code__ln" data-n="1"><span class="k">export const</span> latencyRule = {</span>
+<span class="ui-code__ln" data-n="2">  service: <span class="n">"orders"</span>,</span>
+<span class="ui-code__ln" data-n="3">  metric: <span class="n">"p99"</span>,</span>
+<span class="ui-code__ln is-mark" data-n="4" data-note="超过 800 毫秒 2 分钟就告警">  above: <span class="n">800</span>, <span class="c">// 毫秒</span></span>
+<span class="ui-code__ln" data-n="5">  for: <span class="n">"2m"</span>,</span>
+<span class="ui-code__ln" data-n="6" data-note="先找值班人，没人接再往上报">  notify: [<span class="n">"oncall"</span>],</span>
+<span class="ui-code__ln" data-n="7">};</span></code></pre>
+                <div class="ui-code__hint" data-code-hint><span class="ui-dot"></span><span data-code-text>超过 800 毫秒 2 分钟就告警</span></div>
+              </div>
+            </div></div>
+          </div>
+        </article>
+        <article class="card card--row card--open span-6" id="feat-deploy">
+          <h3>部署后自动复查</h3>
+          <p>每次发布完，Pulse 跑一遍健康检查：接口通不通、延迟高不高，通过了才算完。</p>
+          <div class="panel">
+            <div class="stage stage--fade-b"><div class="at-rise fit" style="--fit-max:440px;--ax:32px;--ay:32px;--ay-sm:32px">
+              <div class="ui ui-panel ui-term" data-ui="terminal-run">
+                <div class="ui-term__head">
+                  <span class="ui-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                  <span class="ui-term__title">pulse/check</span>
+                  <span class="ui-meta">zsh</span>
+                  <span class="ui-spacer"></span>
+                  <span class="ui-chip ui-chip--plain ui-term__branch"><svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="3.5" r="1.5"/><circle cx="5" cy="12.5" r="1.5"/><circle cx="11" cy="5.5" r="1.5"/><path d="M5 5v6M11 7c0 2.6-6 1.8-6 4"/></svg>main</span>
+                </div>
+                <div class="ui-term__screen" data-term-screen>
+                  <div class="ui-term__track" data-term-track>
+                    <div class="ui-term__ln ui-term__cmd"><span class="ui-term__cwd">~/<span class="ui-term__up">pulse/</span>check</span><span class="ui-term__sig">$</span><span class="ui-term__typed" data-term-cmd>pulse check v2.14.0</span></div>
+                    <div class="ui-term__ln ui-term__meter" data-term-out data-term-meter><span class="ui-term__bar" style="--p:1"><i></i></span><span class="ui-term__count" data-term-count>4 of 4 checks</span></div>
+                    <div class="ui-term__ln ui-term__log" data-term-out data-term-step><svg class="ui-term__tick" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg><span class="ui-term__path">api-gateway /health</span><span class="ui-term__n">200</span><span class="ui-term__t">212ms</span></div>
+                    <div class="ui-term__ln ui-term__log" data-term-out data-term-step><svg class="ui-term__tick" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg><span class="ui-term__path">payments /health</span><span class="ui-term__n">200</span><span class="ui-term__t">188ms</span></div>
+                    <div class="ui-term__ln ui-term__log" data-term-out data-term-step><svg class="ui-term__tick" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg><span class="ui-term__path">orders /health</span><span class="ui-term__n">200</span><span class="ui-term__t">244ms</span></div>
+                    <div class="ui-term__ln ui-term__log" data-term-out data-term-step><svg class="ui-term__tick" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg><span class="ui-term__path">search /health</span><span class="ui-term__n">200</span><span class="ui-term__t">164ms</span></div>
+                    <div class="ui-term__ln ui-term__gap" data-term-out aria-hidden="true"></div>
+                    <div class="ui-term__ln ui-term__sum" data-term-out><span class="ui-term__key">Checks</span><span class="ui-term__val">4 passed</span><span class="ui-term__dim">(4)</span></div>
+                    <div class="ui-term__ln ui-term__sum" data-term-out><span class="ui-term__key">Endpoints</span><span class="ui-term__val">4 healthy</span><span class="ui-term__dim">(4)</span></div>
+                    <div class="ui-term__ln ui-term__done" data-term-out data-term-done><span class="ui-term__ok"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4.5 8.3 2.4 2.4 4.6-5"/></svg></span><b>通过</b><span class="ui-term__dim">用时 3.84 秒</span></div>
+                    <div class="ui-term__ln ui-term__cmd" data-term-next><span class="ui-term__cwd">~/<span class="ui-term__up">pulse/</span>check</span><span class="ui-term__sig">$</span><span class="ui-term__typed"></span><i class="ui-term__caret" aria-hidden="true"></i></div>
+                  </div>
+                </div>
+              </div>
+            </div></div>
+          </div>
+        </article>
+        <div class="span-12" data-moment="word-highlight">
+          <p class="mo-wh__text">指标 一越线， Pulse 就在 <strong>30 秒内</strong> 叫醒 值班的人。 故障 找到， 修 还是 人来修。</p>
+          <p class="t-small mq-more"><a class="link" href="#pricing">看看两个版本怎么收费</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="how" style="--hm: 2" aria-labelledby="how-h">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="how-h">三步接上 Pulse</h2>
+      </div>
+      <div class="grid">
+        <article class="card card--row span-4">
+          <span class="step-num">1</span>
+          <h3>接上你的服务</h3>
+          <p>填一个地址，或装一个探针。十分钟内，Pulse 开始检查。</p>
+          <div class="panel">
+            <div class="stage stage--fade-b"><div class="at-rise fit" style="--fit-max:340px;--ax:32px;--ay:40px;--ay-sm:40px" data-ui-loop>
+              <div class="ui ui-panel ui-checks" data-ui="checklist">
+                <div class="ui-checks__head">
+                  <div class="ui-title">接入检查</div>
+                  <span class="ui-spacer"></span>
+                  <div class="ui-meta" data-checks-count>2 / 5</div>
+                </div>
+                <div class="ui-checks__bar"><i data-checks-bar style="--k:0.4"></i></div>
+                <ul class="ui-checks__list">
+                  <li class="ui-check is-done"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">添加服务地址</span></li>
+                  <li class="ui-check is-done"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">选择检查间隔</span></li>
+                  <li class="ui-check"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">设置告警阈值</span></li>
+                  <li class="ui-check"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">排一张值班表</span></li>
+                  <li class="ui-check"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">发送一条测试告警</span></li>
+                </ul>
+              </div>
+            </div></div>
+          </div>
+        </article>
+        <article class="card card--row span-4" id="how-rules">
+          <span class="step-num">2</span>
+          <h3>定好告警规则</h3>
+          <p>选指标、定阈值、排值班表。规则改完立即生效，不用重启。</p>
+          <div class="panel">
+            <div class="stage stage--fade-b"><div class="at-right to-edge" style="--ax:32px;--ay:52px">
+              <div class="ui ui-panel ui-toggles" data-ui="toggles">
+                <div class="ui-head">
+                  <svg class="ui-icon ui-toggles__ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.8 13 4v3.6c0 3-2.1 5.4-5 6.6-2.9-1.2-5-3.6-5-6.6V4z"/><path d="m5.8 8 1.6 1.6 3-3.2"/></svg>
+                  <div class="ui-title">告警规则</div>
+                  <span class="ui-spacer"></span>
+                  <div class="ui-meta" data-tg-count>3 / 4 已开启</div>
+                </div>
+                <ul class="ui-toggles__list">
+                  <li class="ui-tg">
+                    <span class="ui-tg__text"><span class="ui-tg__label">延迟超过 800ms 告警</span><span class="ui-tg__sub">超过 2 分钟才发</span></span>
+                    <button class="ui-switch is-on" type="button" role="switch" aria-checked="true" aria-label="延迟超过 800 毫秒告警"><i></i></button>
+                  </li>
+                  <li class="ui-tg">
+                    <span class="ui-tg__text"><span class="ui-tg__label">错误率超过 1% 告警</span><span class="ui-tg__sub">持续 5 分钟才发</span></span>
+                    <button class="ui-switch is-on" type="button" role="switch" aria-checked="true" aria-label="错误率超过百分之一告警"><i></i></button>
+                  </li>
+                  <li class="ui-tg">
+                    <span class="ui-tg__text"><span class="ui-tg__label">磁盘超过 85% 告警</span><span class="ui-tg__sub">每小时检查一次</span></span>
+                    <button class="ui-switch is-on" type="button" role="switch" aria-checked="true" aria-label="磁盘超过百分之八十五告警"><i></i></button>
+                  </li>
+                  <li class="ui-tg">
+                    <span class="ui-tg__text"><span class="ui-tg__label">服务下线立即告警</span><span class="ui-tg__sub">不用等阈值</span></span>
+                    <button class="ui-switch" type="button" role="switch" aria-checked="false" aria-label="服务下线立即告警"><i></i></button>
+                  </li>
+                </ul>
+              </div>
+            </div></div>
+          </div>
+        </article>
+        <article class="card card--row span-4" id="how-notify">
+          <span class="step-num">3</span>
+          <h3>等它来找你</h3>
+          <p>故障一出现，告警带着日志行发到值班人手里。你只需要在它响的时候出现。</p>
+          <div class="panel">
+            <div class="stage stage--fade-b"><div class="at-rise fit" style="--fit-max:380px;--ax:32px;--ay:calc(100% - 215px);--ay-sm:calc(100% - 180px)">
+              <div class="ui ui-notify" data-ui="notify">
+                <ul class="ui-notify__list" data-notify-list>
+                  <li class="ui-note"><span class="ui-agent ui-note__av" aria-hidden="true"></span><span class="ui-note__text"><span class="ui-note__title">Pulse 发出告警<time>现在</time></span><span class="ui-note__body">磁盘用了 87%，超过 85% 阈值</span></span><span class="ui-btn ui-btn--sm ui-note__btn">查看</span></li>
+                  <li class="ui-note"><span class="ui-avatar ui-note__av" data-tone="5">值</span><span class="ui-note__text"><span class="ui-note__title">告警已确认<time>2分钟</time></span><span class="ui-note__body">值班人正在处理</span></span></li>
+                  <li class="ui-note"><span class="ui-note__ico"><svg class="ui-icon" viewBox="0 0 16 16"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg></span><span class="ui-note__text"><span class="ui-note__title">1 条告警已恢复<time>9分钟</time></span><span class="ui-note__body">本小时没有新的告警</span></span></li>
+                </ul>
+              </div>
+            </div></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="integrations" aria-labelledby="integrations-h">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="integrations-h">接进你已有的工具 <span class="muted">告警发到 Slack，部署来自 GitHub，指标来自 Prometheus。</span></h2>
+      </div>
+      <div class="panel">
+        <div class="dg" data-diagram><script type="application/json">{"layout": "hub", "alt": "Pulse 接进 Slack、GitHub、Prometheus、Grafana、PagerDuty 和 Datadog。", "center": {"label": "Pulse", "icon": "text:Pu"}, "spokes": [{"label": "Slack", "icon": "slack"}, {"label": "GitHub", "icon": "github"}, {"label": "Prometheus", "icon": "prometheus"}, {"label": "Grafana", "icon": "grafana"}, {"label": "PagerDuty", "icon": "pagerduty"}, {"label": "Datadog", "icon": "datadog"}]}</script></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="pricing" style="--hm: 2" aria-labelledby="pricing-h">
+    <div class="wrap">
+      <div class="grid">
+        <div class="span-4">
+          <h2 id="pricing-h">价格</h2>
+          <p class="t-lead muted">两个版本，都先免费试用 14 天。</p>
+          <ul class="checks">
+            <li>每 10 秒检查一次</li>
+            <li>告警到邮件和 Slack</li>
+            <li>值班表</li>
+            <li>部署后自动复查</li>
+          </ul>
+          <p><a class="link" href="#faq">查看常见问题</a></p>
+        </div>
+        <article class="card card--plan span-4 start-5 is-featured">
+          <h3><svg class="plan-ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>试用版 <span class="badge">推荐</span></h3>
+          <p>先试试再说</p>
+          <p class="price"><span class="t-stat">免费 14 天</span></p>
+          <a class="btn btn--primary" href="mailto:hello@pulse.example">开始试用</a>
+          <ul class="checks">
+            <li>5 个服务</li>
+            <li>14 天指标保留</li>
+            <li>1 张值班表</li>
+            <li>5 条告警规则</li>
+            <li>邮件支持</li>
+          </ul>
+        </article>
+        <article class="card card--plan span-4 start-9">
+          <h3><svg class="plan-ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.4 3.4-5 6.5-5s5.7 1.6 6.5 5"/><circle cx="17" cy="9" r="2.8"/><path d="M16 15.2c2.6.3 4.6 1.7 5.3 4.3"/></svg>团队版</h3>
+          <p>整个团队一起值班</p>
+          <p class="price"><span class="t-stat">联系销售</span></p>
+          <p class="t-small muted">按团队规模计价</p>
+          <a class="btn btn--secondary" href="mailto:hello@pulse.example">联系销售</a>
+          <ul class="checks">
+            <li>不限服务数量</li>
+            <li>90 天指标保留</li>
+            <li>多张值班表和升级规则</li>
+            <li>不限告警规则</li>
+            <li>告警到短信、电话和 PagerDuty</li>
+            <li>单点登录</li>
+            <li>专属支持</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq" style="--hm: 2" aria-labelledby="faq-h">
+    <div class="wrap">
+      <div class="grid grid--top">
+        <div class="span-5">
+          <h2 id="faq-h">常见问题</h2>
+          <p class="t-lead muted">没答到的，写邮件问我们。</p>
+          <p><a class="link" href="mailto:hello@pulse.example"><svg class="link-ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>联系我们</a></p>
+        </div>
+        <div class="faq span-6 start-7">
+          <div class="faq__item"><h3>Pulse 监控什么？</h3><p>服务、接口和定时任务：通不通、慢不慢、错多少。服务器的 CPU 和磁盘也一起看。</p></div>
+          <div class="faq__item"><h3>告警多久能到？</h3><p>指标越线后 30 秒内，短信、邮件或 Slack 发到值班人手里。同一故障只发一次，不刷屏。</p></div>
+          <div class="faq__item"><h3>试用期结束会怎样？</h3><p>试用到 14 天，监控停掉，数据再保留 30 天。升级后立即恢复，不用重新接。</p></div>
+          <div class="faq__item"><h3>能接进我们已有的工具吗？</h3><p>可以。Slack、GitHub、Prometheus、Grafana、PagerDuty 和 Datadog 都在集成里，接上就能用。</p></div>
+          <div class="faq__item"><h3>Pulse 会替我们修故障吗？</h3><p>不会。它找到故障、叫醒值班的人，修还是人来修。</p></div>
+          <div class="faq__item"><h3>告警的数据存在哪里？</h3><p>指标存在 Pulse 的服务器上。日志只在告警里附一段，不整份上传。</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer closing footer--dark ground-inverse" id="contact" aria-labelledby="close-h">
+  <div class="wrap">
+    <div class="closing__cta close--word">
+      <div class="section-head--split">
+        <div><h2 id="close-h">先试 14 天，再决定</h2><p class="t-lead">免费试用 14 天，不用信用卡。</p></div>
+        <a class="btn btn--primary" href="mailto:hello@pulse.example">开始免费试用</a>
+      </div>
+      <p class="close__word" aria-hidden="true">Pulse</p>
+    </div>
+    <div class="closing__links">
+      <div class="grid">
+        <div class="span-4 stack-4">
+          <a class="nav__logo" href="#top"><span class="mark" data-mark="arc" aria-hidden="true"></span>Pulse</a>
+          <p class="footer__lede">开发者团队的实时应用监控。</p>
+        </div>
+        <div class="span-2 footer__col"><h3>产品</h3><ul><li><a href="#app">监控界面</a></li><li><a href="#features">功能</a></li><li><a href="#integrations">集成</a></li><li><a href="#pricing">价格</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>上手</h3><ul><li><a href="#how">三步接上</a></li><li><a href="#faq">常见问题</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>支持</h3><ul><li><a href="mailto:hello@pulse.example">联系我们</a></li><li><a href="#features">告警规则</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>公司</h3><ul><li><a href="#top">Pulse</a></li><li><a href="#pricing">开始试用</a></li></ul></div>
+      </div>
+      <div class="footer__legal">
+        <span>&copy; 2026 Pulse &nbsp; <a href="privacy.html">Privacy</a> &nbsp; <a href="terms.html">Terms</a></span>
+        <span>本站为演示站点，Pulse 及本页内容均为虚构。</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="assets/system.js"></script>
+<script type="module" src="assets/motion/motion.js"></script>
+<script type="module" src="assets/layout/layout.js"></script>
+<script type="module" src="assets/diagrams/mount.js"></script>
+
+<script>
+/* 导航当前项：随滚动给对应链接加 aria-current（consistency 的 nav-current 检查） */
+(function () {
+  var links = Array.prototype.slice.call(document.querySelectorAll('.nav__links .nav__link[href^="#"]'));
+  var map = {};
+  links.forEach(function (a) {
+    var s = document.querySelector(a.getAttribute('href'));
+    if (s && s.id) map[s.id] = a;
+  });
+  var ids = Object.keys(map);
+  if (!ids.length) return;
+  var cur = null;
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      var a = map[e.target.id];
+      if (!a || a === cur) return;
+      if (cur) cur.removeAttribute('aria-current');
+      a.setAttribute('aria-current', 'true');
+      cur = a;
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  ids.forEach(function (id) { io.observe(document.getElementById(id)); });
+})();
+</script>
+</body>
+</html>
